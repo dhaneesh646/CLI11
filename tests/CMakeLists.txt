@@ -1,3 +1,9 @@
+# Copyright (c) 2017-2026, University of Cincinnati, developed by Henry Schreiner
+# under NSF AWARD 1414736 and by the respective contributors.
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 if(CLI11_SANITIZERS AND ${CMAKE_VERSION} VERSION_GREATER "3.15")
   message(STATUS "Using arsenm/sanitizers-cmake")
   FetchContent_Declare(
@@ -212,6 +218,10 @@ if(CMAKE_CXX_STANDARD GREATER 16)
   endif()
   file(REMOVE ${CMAKE_BINARY_DIR}/test_atomic.cpp)
 endif()
+
+find_package(Threads)
+
+target_link_libraries(AppTest PRIVATE Threads::Threads)
 
 # Add -Wno-deprecated-declarations to DeprecatedTest
 set(no-deprecated-declarations $<$<CXX_COMPILER_ID:MSVC>:/wd4996>
